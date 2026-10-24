@@ -344,10 +344,13 @@ internal sealed class SessionStorage : IDisposable {
     }
 
     /// Has the worker save what is unwritten now instead of after its delay,
-    /// for a caller about to wait until it is on disk.
+    /// for a caller about to wait until it is on disk. That includes what a
+    /// failed write left unwritten, which nothing else would retry until the
+    /// next edit; the retry's `Saved` or `StorageFailed` releases the caller.
     public void Expedite() {
         lock (queue) {
-            if (!pendingIsNew) return;
+            if (pending is null && pendingDevice is null) return;
+            pendingIsNew = true;
             expedited = true;
             Monitor.Pulse(queue);
         }
