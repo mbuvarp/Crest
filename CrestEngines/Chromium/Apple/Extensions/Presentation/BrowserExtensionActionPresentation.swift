@@ -35,12 +35,27 @@ extension BrowserExtensionActionPresentation {
     init(_ action: ExtensionAction) {
         self.init(
             id: action.id, displayName: action.name, badgeText: action.badge,
-            icon: action.icon.flatMap(NSImage.init(extensionIcon:)), isEnabled: action.enabled,
+            icon: action.icon.flatMap(NSImage.extensionIcon), isEnabled: action.enabled,
             isPinned: action.pinned)
     }
 }
 
 extension NSImage {
+    /// Decoded extension icons by their encoded bytes. The engine encodes the
+    /// icons again each time it lists a Space's actions, which a badge change
+    /// does, so an icon whose bytes did not change reuses its image.
+    @MainActor private static var extensionIcons: [Data: NSImage] = [:]
+    private static let extensionIconLimit = 256
+
+    /// The image for an extension's encoded icon, decoded once per distinct icon.
+    @MainActor static func extensionIcon(_ data: Data) -> NSImage? {
+        if let image = extensionIcons[data] { return image }
+        guard let image = NSImage(extensionIcon: data) else { return nil }
+        if extensionIcons.count >= extensionIconLimit { extensionIcons.removeAll() }
+        extensionIcons[data] = image
+        return image
+    }
+
     /// An extension's icon, which the engine encodes at twice its size in points.
     convenience init?(extensionIcon data: Data) {
         self.init(data: data)

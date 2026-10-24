@@ -4389,6 +4389,10 @@
     "responsive-with-many-spaces-and-extensions": {
       "category": "improved",
       "message": "Crest stays more responsive with many Spaces, especially when each Space has its own extensions."
+    },
+    "smoother-scrolling-with-extension-badges": {
+      "category": "improved",
+      "message": "Pages scroll more smoothly while extensions such as ad blockers update their badge counts."
     }
   }
 }
