@@ -63,11 +63,20 @@ final class ChromiumExtensionStore {
         return browser.spaceModel(matching: space.assignment) != nil
     }
     func refresh() {
+        refresh(where: { _ in true })
+    }
+    /// Rereads only the Space whose profile changed. Badge and icon updates
+    /// arrive per profile while pages load, and rereading every Space's list
+    /// for each one encodes every extension's icon again on the main thread.
+    func refresh(profile profileID: UUID) {
+        refresh(where: { $0 == profileID })
+    }
+    private func refresh(where rereads: (UUID) -> Bool) {
         revision &+= 1
         guard ChromiumComposition.chromiumEngine != nil else { return }
         let profiles = Set(spaces.map { $0.profileID })
         installed = installed.filter { profiles.contains($0.key) }
-        for space in spaces where installed[space.profileID] != nil {
+        for space in spaces where installed[space.profileID] != nil && rereads(space.profileID) {
             installed[space.profileID] = Self.installed(in: space)
         }
     }
