@@ -4393,6 +4393,10 @@
     "smoother-scrolling-with-extension-badges": {
       "category": "improved",
       "message": "Pages scroll more smoothly while extensions such as ad blockers update their badge counts."
+    },
+    "extension-icon-cache-evicts-oldest": {
+      "category": "internal",
+      "message": "Let a full extension icon cache release its oldest icon instead of every decoded icon."
     }
   }
 }
