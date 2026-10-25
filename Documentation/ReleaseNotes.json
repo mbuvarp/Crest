@@ -4546,6 +4546,10 @@
       "category": "fixed",
       "message": "Pressing Shift-Return in Find moves to the previous match."
     },
+    "toggle-command-bar-shortcut": {
+      "category": "improved",
+      "message": "Pressing Command-T while the command bar is open closes it."
+    },
     "responsive-with-many-spaces-and-extensions": {
       "category": "improved",
       "message": "Crest stays more responsive with many Spaces, especially when each Space has its own extensions."
