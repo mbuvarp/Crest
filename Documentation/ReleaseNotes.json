@@ -4574,6 +4574,10 @@
       "category": "new",
       "message": "Right-click the lists button at the bottom of the sidebar to choose whether it opens Archive, History or Downloads in the Space you are in."
     },
+    "start-page-command-t-focus": {
+      "category": "fixed",
+      "message": "On a Start Page, Command-T closes an open command bar and puts the cursor back in the Start Page field."
+    },
     "responsive-with-many-spaces-and-extensions": {
       "category": "improved",
       "message": "Crest stays more responsive with many Spaces, especially when each Space has its own extensions."
