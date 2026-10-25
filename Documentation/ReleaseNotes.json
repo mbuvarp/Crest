@@ -4525,6 +4525,10 @@
     "quit-after-failed-save": {
       "category": "fixed",
       "message": "Crest no longer waits indefinitely to quit after saving your session failed."
+    },
+    "extension-revisions-follow-spaces": {
+      "category": "internal",
+      "message": "Keep the extension icons a Space keeps showing decoded, and release a removed Space's extension change tracking."
     }
   }
 }

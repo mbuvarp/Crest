@@ -111,8 +111,11 @@ final class ChromiumExtensionStore {
         }
     }
     private func reread(where rereads: (UUID) -> Bool) {
-        guard ChromiumComposition.chromiumEngine != nil else { return }
         let profiles = Set(spaces.map { $0.profileID })
+        if profileRevisions.keys.contains(where: { !profiles.contains($0) }) {
+            profileRevisions = profileRevisions.filter { profiles.contains($0.key) }
+        }
+        guard ChromiumComposition.chromiumEngine != nil else { return }
         if installed.keys.contains(where: { !profiles.contains($0) }) {
             installed = installed.filter { profiles.contains($0.key) }
         }

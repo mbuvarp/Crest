@@ -45,14 +45,19 @@ extension NSImage {
     /// icons again each time it lists a Space's actions, which a badge change
     /// does, so an icon whose bytes did not change reuses its image.
     @MainActor private static var extensionIcons: [Data: NSImage] = [:]
-    /// The cached icons' bytes, oldest first. A full cache lets only its
-    /// oldest icon go, so the icons a Space keeps showing stay decoded.
+    /// The cached icons' bytes, least recently shown first. A full cache lets
+    /// only that icon go, so the icons a Space keeps showing stay decoded.
     @MainActor private static var extensionIconOrder: [Data] = []
     private static let extensionIconLimit = 256
 
     /// The image for an extension's encoded icon, decoded once per distinct icon.
     @MainActor static func extensionIcon(_ data: Data) -> NSImage? {
-        if let image = extensionIcons[data] { return image }
+        if let image = extensionIcons[data] {
+            if let index = extensionIconOrder.firstIndex(of: data) {
+                extensionIconOrder.append(extensionIconOrder.remove(at: index))
+            }
+            return image
+        }
         guard let image = NSImage(extensionIcon: data) else { return nil }
         if extensionIconOrder.count >= extensionIconLimit {
             extensionIcons[extensionIconOrder.removeFirst()] = nil
