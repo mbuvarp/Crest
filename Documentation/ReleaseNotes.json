@@ -4538,6 +4538,10 @@
       "category": "fixed",
       "message": "Importing a password file now lists rows with a malformed IP address as invalid instead of saving passwords that could never fill."
     },
+    "imported-ip-address-passwords-fill": {
+      "category": "fixed",
+      "message": "Imported passwords for sites at an IP address written in a long or unusual form, such as 127.1, now fill on that site and merge with passwords already saved for it."
+    },
     "responsive-with-many-spaces-and-extensions": {
       "category": "improved",
       "message": "Crest stays more responsive with many Spaces, especially when each Space has its own extensions."
