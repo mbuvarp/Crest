@@ -4542,6 +4542,10 @@
       "category": "fixed",
       "message": "Imported passwords for sites at an IP address written in a long or unusual form, such as 127.1, now fill on that site and merge with passwords already saved for it."
     },
+    "find-shift-return-previous-match": {
+      "category": "fixed",
+      "message": "Pressing Shift-Return in Find moves to the previous match."
+    },
     "responsive-with-many-spaces-and-extensions": {
       "category": "improved",
       "message": "Crest stays more responsive with many Spaces, especially when each Space has its own extensions."
